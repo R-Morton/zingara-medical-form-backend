@@ -1,10 +1,5 @@
 const mongoose = require('mongoose')
 
-const painSchema = new mongoose.Schema({
-    painType: String,
-    gp: String
-})
-
 const UserSchema = new mongoose.Schema({
     name: String,
     email: String,
@@ -12,13 +7,15 @@ const UserSchema = new mongoose.Schema({
     gender: String,
     height: String,
     address: String,
-    occupation: String,
     ename: String,
     enumber: String,
+    occupation: String,
     pain: {
         painType: String,
         gp: String
     },
+    allergies: String,
+    q3: Array,
     notes: [{type: mongoose.Types.ObjectId, ref: 'Note'}]
 })
 
