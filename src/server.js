@@ -35,10 +35,10 @@ switch(process.env.NODE_ENV.toLowerCase()){
 		databaseURL = process.env.DATABASE_URL;
 		break;
 	case "development":
-		databaseURL = 'mongodb://localhost:27017/note_taking_db';
+		databaseURL = 'mongodb://localhost:27017/zingara_db';
 		break;
 	case "test":
-		databaseURL = 'mongodb://localhost:27017/note_taking_db_test';
+		databaseURL = 'mongodb://localhost:27017/zingara_db_test';
 		break;
 	default:
 		console.error("Wrong environment mode, database cannot connect");
@@ -71,6 +71,12 @@ app.get("/", (request, response) => {
 		message:"Welcome to the Zingara medical form backend"
 	});
 });
+
+const usersRouter = require('./routes/UserRoutes')
+app.use("/users", usersRouter)
+
+const notesRouter = require('./routes/NoteRoutes')
+app.use("/notes", notesRouter)
 
 module.exports = {
 	app, HOST, PORT
