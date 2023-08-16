@@ -22,6 +22,29 @@ const createNote = async (request, response) => {
     }
 }
 
+const updateNote = async (request, response) => {
+    let updatedNote = await Note.findByIdAndUpdate(request.params.id, request.body, {new: true})
+        .catch(error => {
+            console.log("Some error while accessing data:\n" + error)
+        }) 
+    // if we could find the note we will update it
+    if (updatedNote) {
+        response.send(updatedNote)
+    } else { // if the id doesn't exist note will be undefined and will return error message
+        response.json({error: "id not found"})
+    }     
+}
+
+const deleteNote = async (request, response) => {
+    const noteId = request.params.id
+
+    const deletedNote = await Note.findByIdAndDelete(noteId)
+
+    response.json("note deleted successfully")
+}
+
 module.exports = {
-    createNote
+    createNote,
+    updateNote,
+    deleteNote
 }
